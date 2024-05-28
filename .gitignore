@@ -18,6 +18,7 @@ package-lock.json
 *.launch
 .settings/
 *.sublime-workspace
+.vscode
 
 # IDE - VSCode
 .vscode/*
@@ -49,4 +50,3 @@ Thumbs.db
 .firebaserc
 firebase.json
 src/environments/
-
