@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { OcupationalProfile, Competence } from '../../ocupational-profile';
-import * as bok from '@eo4geo/bok-dataviz';
+import * as bok from '@eo4geo/find-in-bok-dataviz';
 import { OcuprofilesService } from '../../services/ocuprofiles.service';
 import { Organization, OrganizationService } from '../../services/organization.service';
 import { FieldsService, Field } from '../../services/fields.service';
@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User, UserService } from '../../services/user.service';
 import { BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -178,7 +179,12 @@ export class NewopComponent implements OnInit {
   }
 
   ngOnInit() {
-    bok.visualizeBOKData('#bubbles', '#textBoK');
+    const inputObject = {
+      svgId: '#bubbles',
+      textId: '#textBoK',
+      urls: environment.URL_ARRAY
+    };
+    bok.visualizeBOKData(inputObject);
     this.getMode();
 
     this.observer = new MutationObserver(mutations => {
