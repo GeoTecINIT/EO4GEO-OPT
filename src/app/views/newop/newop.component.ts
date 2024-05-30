@@ -206,7 +206,7 @@ export class NewopComponent implements OnInit {
     const divs = this.textBoK.nativeElement.getElementsByTagName('div');
     if (divs['bokskills'] != null) {
       const shortCode = this.textBoK.nativeElement.getElementsByTagName('h4')[0].innerText.split(' ')[0];
-      const as = divs['bokskills'].getElementsByTagName('a');
+      const as = divs['bokskills'].getElementsByTagName('li');
       for (const skill of as) {
         if (!this.model.skills.includes(shortCode + ' ' + skill.innerText)) {
           this.model.skills.push(shortCode + ' ' + skill.innerText);
