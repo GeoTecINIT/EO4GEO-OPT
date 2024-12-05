@@ -43,7 +43,15 @@ export class DefaultLayoutComponent implements OnDestroy {
         // User is signed in.
         this.username = user.email;
         this.userId = user.uid;
-        this.refreshPending();
+
+        // Check if it's stored in firebase
+        this.userService.getUserById(user.uid).subscribe(usr => {
+          if (usr == null) {
+            this.userService.addNewUser(user);
+            this.refreshPending();
+
+          }
+        });
       } else {
         this.isAnonymous = true;
       }

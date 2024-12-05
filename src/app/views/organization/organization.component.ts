@@ -167,7 +167,7 @@ export class OrganizationComponent implements OnInit {
   }
 
   deleteUserFromOrg(user, org) {
-    if (org.admin.length > 1 && user) {
+    if (user && org && (org.admin.length > 1 || (org.admin.length == 1 && !org.admin.includes(user._id)))) {
       const indexToRemove = user.organizations.indexOf(org._id);
       if (indexToRemove !== -1) {
         user.organizations.splice(indexToRemove, 1);
