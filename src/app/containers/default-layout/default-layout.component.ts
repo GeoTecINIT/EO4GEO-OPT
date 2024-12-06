@@ -43,15 +43,7 @@ export class DefaultLayoutComponent implements OnDestroy {
         // User is signed in.
         this.username = user.email;
         this.userId = user.uid;
-
-        // Check if it's stored in firebase
-        this.userService.getUserById(user.uid).subscribe(usr => {
-          if (usr == null) {
-            this.userService.addNewUser(user);
-            this.refreshPending();
-
-          }
-        });
+        this.refreshPending();
       } else {
         this.isAnonymous = true;
       }
@@ -63,7 +55,9 @@ export class DefaultLayoutComponent implements OnDestroy {
       this.isAnonymous = this.afAuth.auth.currentUser.isAnonymous;
       this.userService.getUserById(this.afAuth.auth.currentUser.uid).subscribe(userDB => {
         this.hasOrgs = userDB && userDB.organizations && userDB.organizations.length > 0;
-        if (this.hasOrgs) {
+        if (userDB == null) {
+          this.userService.addNewUser(this.afAuth.auth.currentUser);
+        } else if (this.hasOrgs) {
           this.numPending = 0;
           userDB.organizations.forEach(orgId => {
             const orgSubs = this.organizationService.getOrganizationById(orgId).subscribe(org => {
