@@ -55,7 +55,7 @@ export class DefaultLayoutComponent implements OnDestroy {
       this.isAnonymous = this.afAuth.auth.currentUser.isAnonymous;
       this.userService.getUserById(this.afAuth.auth.currentUser.uid).subscribe(userDB => {
         this.hasOrgs = userDB && userDB.organizations && userDB.organizations.length > 0;
-        if (userDB == null) {
+        if (userDB == null || Object.keys(userDB).length === 0) {
           this.userService.addNewUser(this.afAuth.auth.currentUser);
         } else if (this.hasOrgs) {
           this.numPending = 0;
