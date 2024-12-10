@@ -295,6 +295,9 @@ export class OrganizationComponent implements OnInit {
         this.msgUsrError = 'Can not remove the only admin! Remove organization if you prefer.';
       }
     }
+    // Update joinOrg
+    if (this.joinOrg) this.joinOrg = this.currentOrg;
+    // Update Firebase Organization
     this.organizationService.updateOrganizationWithId(this.orgs[orgIndex]._id, this.orgs[orgIndex]);
     const userSub = this.userService.getUserById(userId).subscribe(userDB => {
       if (userDB) {
